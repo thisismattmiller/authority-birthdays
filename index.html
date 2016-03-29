@@ -1,0 +1,487 @@
+<html ><head>
+
+<style>
+* {
+  box-sizing: border-box;
+}
+
+body {
+  font-family: sans-serif;
+  color: #4d4d4d;
+  min-height: 1000px;
+  background-color: #ecf0f1;
+}
+
+h1 {
+  font-size: 4em;
+  font-weight: 700;
+  text-align: center;
+  color: #e74c3c;
+  margin: 0.25em 0;
+}
+
+h2 {
+  font-style: italic;
+  text-align: center;
+  margin-bottom: 2em;
+}
+
+main {
+  background: #333;
+  width: 100%;
+  padding: 30px;
+  text-align: center;
+  margin-bottom: 30px;
+  font-style: italic;
+}
+main a {
+  color: #e75854;
+  text-decoration: none;
+  transition: color 250ms ease-in-out;
+}
+main a:hover {
+  color: #fafafa;
+}
+
+.dropdown-holder{
+  width: 100%;
+  text-align: center;
+  position: relative;
+}
+/* Dropdown style */
+.dropdown {
+  width: 10em;
+  margin: 0 auto;
+  margin-bottom: 1em;
+  display: inline-block;
+}
+.dropdown dt a {
+  display: block;
+  height: 2.5em;
+  width: 100%;
+  border: 1px solid #95a5a6;
+  border-radius: 3px;
+  text-decoration: none;
+}
+.dropdown dt a:hover, .dropdown dt a:active {
+  border-color: #7f8c8d;
+}
+.dropdown dt span {
+  display: block;
+  padding: 0 1em;
+  line-height: 2.5em;
+  background: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAwAAAAKCAYAAACALL/6AAAACXBIWXMAAAsTAAALEwEAmpwYAAAAIGNIUk0AAHo+AACAQQAA+MoAAIC0AAB48QAA9RwAADw3AAAbzhlfIT4AAACJSURBVHjajNAxCsJAEEbhb5cU4i0sbHIaL6IQTxFPo4VeROwXQs4gKW1cWJZEM90wj5l5f0jDeMXBunqENIw7vLD9A09oIxL6FdsvSCENI2zwxH4BTmgxxeJc92P76cuIpRBuc6K45yZWwzPeleixBOLMr30tWgJZuqwcQJNFy2GzkHeHUMPwGQChFSPmzlJ1WgAAAABJRU5ErkJggg==) no-repeat scroll right center;
+  border-right: 1em solid transparent;
+  cursor: pointer;
+}
+.dropdown dd {
+  position: relative;
+}
+.dropdown dd ul {
+  display: none;
+  position: absolute;
+  left: 0;
+  top: -2.5em;
+  width: 100%;
+  list-style: none;
+  padding: 0;
+  list-style-type: none;
+  background: #fff none repeat scroll 0 0;
+  border: 1px solid #bdc3c7;
+  border-radius: 3px;
+
+
+}
+.dropdown dd ul li:first-child a:hover {
+  border-radius: 3px 3px 0 0;
+}
+.dropdown dd ul li:last-child a:hover {
+  border-radius: 0 0 3px 3px;
+}
+.dropdown dd li a {
+  display: block;
+  padding: 0 1em;
+  line-height: 2.5em;
+  text-decoration: none;
+}
+.dropdown dd li a:hover {
+  background-color: #e74c3c;
+  color: #fff;
+  cursor: pointer;
+}
+
+.selected {
+  font-weight: 700;
+}
+
+.flex-container {
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: space-around;
+}
+.flex-item{
+  width: 33%;
+  min-height: 50px;
+  padding: 10px;
+}
+.flex-item a{
+  color: rgba(41, 128, 185,1.0);
+  text-decoration: none;
+  font-family: sans-serif, Arial;
+  padding-bottom: 2px;
+
+}
+.flex-item a:hover{
+  text-decoration: underline;
+}
+.flex-item-title{
+  text-align: center;
+  margin: 5px;
+}
+.noresults{
+  opacity: 0.5;
+  text-align: center;
+  margin: 10px;
+}
+
+#exact{
+  background-color: rgba(46, 204, 113,0.10)
+}
+#before{
+  background-color: rgba(155, 89, 182,0.10)
+}
+#after{
+  background-color: rgba(52, 152, 219,0.10)
+}
+
+@-webkit-keyframes rotating /* Safari and Chrome */ {
+  from {
+    -ms-transform: rotate(0deg);
+    -moz-transform: rotate(0deg);
+    -webkit-transform: rotate(0deg);
+    -o-transform: rotate(0deg);
+    transform: rotate(0deg);
+  }
+  to {
+    -ms-transform: rotate(360deg);
+    -moz-transform: rotate(360deg);
+    -webkit-transform: rotate(360deg);
+    -o-transform: rotate(360deg);
+    transform: rotate(360deg);
+  }
+}
+@keyframes rotating {
+  from {
+    -ms-transform: rotate(0deg);
+    -moz-transform: rotate(0deg);
+    -webkit-transform: rotate(0deg);
+    -o-transform: rotate(0deg);
+    transform: rotate(0deg);
+  }
+  to {
+    -ms-transform: rotate(360deg);
+    -moz-transform: rotate(360deg);
+    -webkit-transform: rotate(360deg);
+    -o-transform: rotate(360deg);
+    transform: rotate(360deg);
+  }
+}
+.rotating {
+  -webkit-animation: rotating 2s linear infinite;
+  -moz-animation: rotating 2s linear infinite;
+  -ms-animation: rotating 2s linear infinite;
+  -o-animation: rotating 2s linear infinite;
+  animation: rotating 2s linear infinite;
+}
+
+#spinner-container{
+text-align: center;
+height: 50px;
+}
+#spinner{
+    margin-left: 12px;
+    display: none;
+}
+.footer{
+  text-align: center;
+  margin: 20px;
+}
+</style></head><body>
+<h1>Authority Birthdays</h1>
+<h2 style="margin-bottom: 0">pick a date</h2>
+<div id="spinner-container">
+  <img alt="" class="rotating" id="spinner" src="data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBzdGFuZGFsb25lPSJubyI/Pgo8IURPQ1RZUEUgc3ZnIFBVQkxJQyAiLS8vVzNDLy9EVEQgU1ZHIDEuMS8vRU4iICJodHRwOi8vd3d3LnczLm9yZy9HcmFwaGljcy9TVkcvMS4xL0RURC9zdmcxMS5kdGQiPgo8c3ZnIHdpZHRoPSI0MHB4IiBoZWlnaHQ9IjQwcHgiIHZpZXdCb3g9IjAgMCA0MCA0MCIgdmVyc2lvbj0iMS4xIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHhtbG5zOnhsaW5rPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5L3hsaW5rIiB4bWw6c3BhY2U9InByZXNlcnZlIiBzdHlsZT0iZmlsbC1ydWxlOmV2ZW5vZGQ7Y2xpcC1ydWxlOmV2ZW5vZGQ7c3Ryb2tlLWxpbmVqb2luOnJvdW5kO3N0cm9rZS1taXRlcmxpbWl0OjEuNDE0MjE7IiB4PSIwcHgiIHk9IjBweCI+CiAgICA8ZGVmcz4KICAgICAgICA8c3R5bGUgdHlwZT0idGV4dC9jc3MiPjwhW0NEQVRBWwogICAgICAgICAgICBALXdlYmtpdC1rZXlmcmFtZXMgc3BpbiB7CiAgICAgICAgICAgICAgZnJvbSB7CiAgICAgICAgICAgICAgICAtd2Via2l0LXRyYW5zZm9ybTogcm90YXRlKDBkZWcpCiAgICAgICAgICAgICAgfQogICAgICAgICAgICAgIHRvIHsKICAgICAgICAgICAgICAgIC13ZWJraXQtdHJhbnNmb3JtOiByb3RhdGUoLTM1OWRlZykKICAgICAgICAgICAgICB9CiAgICAgICAgICAgIH0KICAgICAgICAgICAgQGtleWZyYW1lcyBzcGluIHsKICAgICAgICAgICAgICBmcm9tIHsKICAgICAgICAgICAgICAgIHRyYW5zZm9ybTogcm90YXRlKDBkZWcpCiAgICAgICAgICAgICAgfQogICAgICAgICAgICAgIHRvIHsKICAgICAgICAgICAgICAgIHRyYW5zZm9ybTogcm90YXRlKC0zNTlkZWcpCiAgICAgICAgICAgICAgfQogICAgICAgICAgICB9CiAgICAgICAgICAgIHN2ZyB7CiAgICAgICAgICAgICAgICAtd2Via2l0LXRyYW5zZm9ybS1vcmlnaW46IDUwJSA1MCU7CiAgICAgICAgICAgICAgICAtd2Via2l0LWFuaW1hdGlvbjogc3BpbiAxLjVzIGxpbmVhciBpbmZpbml0ZTsKICAgICAgICAgICAgICAgIC13ZWJraXQtYmFja2ZhY2UtdmlzaWJpbGl0eTogaGlkZGVuOwogICAgICAgICAgICAgICAgYW5pbWF0aW9uOiBzcGluIDEuNXMgbGluZWFyIGluZmluaXRlOwogICAgICAgICAgICB9CiAgICAgICAgXV0+PC9zdHlsZT4KICAgIDwvZGVmcz4KICAgIDxnIGlkPSJvdXRlciI+CiAgICAgICAgPGc+CiAgICAgICAgICAgIDxwYXRoIGQ9Ik0yMCwwQzIyLjIwNTgsMCAyMy45OTM5LDEuNzg4MTMgMjMuOTkzOSwzLjk5MzlDMjMuOTkzOSw2LjE5OTY4IDIyLjIwNTgsNy45ODc4MSAyMCw3Ljk4NzgxQzE3Ljc5NDIsNy45ODc4MSAxNi4wMDYxLDYuMTk5NjggMTYuMDA2MSwzLjk5MzlDMTYuMDA2MSwxLjc4ODEzIDE3Ljc5NDIsMCAyMCwwWiIgc3R5bGU9ImZpbGw6YmxhY2s7Ii8+CiAgICAgICAgPC9nPgogICAgICAgIDxnPgogICAgICAgICAgICA8cGF0aCBkPSJNNS44NTc4Niw1Ljg1Nzg2QzcuNDE3NTgsNC4yOTgxNSA5Ljk0NjM4LDQuMjk4MTUgMTEuNTA2MSw1Ljg1Nzg2QzEzLjA2NTgsNy40MTc1OCAxMy4wNjU4LDkuOTQ2MzggMTEuNTA2MSwxMS41MDYxQzkuOTQ2MzgsMTMuMDY1OCA3LjQxNzU4LDEzLjA2NTggNS44NTc4NiwxMS41MDYxQzQuMjk4MTUsOS45NDYzOCA0LjI5ODE1LDcuNDE3NTggNS44NTc4Niw1Ljg1Nzg2WiIgc3R5bGU9ImZpbGw6cmdiKDIxMCwyMTAsMjEwKTsiLz4KICAgICAgICA8L2c+CiAgICAgICAgPGc+CiAgICAgICAgICAgIDxwYXRoIGQ9Ik0yMCwzMi4wMTIyQzIyLjIwNTgsMzIuMDEyMiAyMy45OTM5LDMzLjgwMDMgMjMuOTkzOSwzNi4wMDYxQzIzLjk5MzksMzguMjExOSAyMi4yMDU4LDQwIDIwLDQwQzE3Ljc5NDIsNDAgMTYuMDA2MSwzOC4yMTE5IDE2LjAwNjEsMzYuMDA2MUMxNi4wMDYxLDMzLjgwMDMgMTcuNzk0MiwzMi4wMTIyIDIwLDMyLjAxMjJaIiBzdHlsZT0iZmlsbDpyZ2IoMTMwLDEzMCwxMzApOyIvPgogICAgICAgIDwvZz4KICAgICAgICA8Zz4KICAgICAgICAgICAgPHBhdGggZD0iTTI4LjQ5MzksMjguNDkzOUMzMC4wNTM2LDI2LjkzNDIgMzIuNTgyNCwyNi45MzQyIDM0LjE0MjEsMjguNDkzOUMzNS43MDE5LDMwLjA1MzYgMzUuNzAxOSwzMi41ODI0IDM0LjE0MjEsMzQuMTQyMUMzMi41ODI0LDM1LjcwMTkgMzAuMDUzNiwzNS43MDE5IDI4LjQ5MzksMzQuMTQyMUMyNi45MzQyLDMyLjU4MjQgMjYuOTM0MiwzMC4wNTM2IDI4LjQ5MzksMjguNDkzOVoiIHN0eWxlPSJmaWxsOnJnYigxMDEsMTAxLDEwMSk7Ii8+CiAgICAgICAgPC9nPgogICAgICAgIDxnPgogICAgICAgICAgICA8cGF0aCBkPSJNMy45OTM5LDE2LjAwNjFDNi4xOTk2OCwxNi4wMDYxIDcuOTg3ODEsMTcuNzk0MiA3Ljk4NzgxLDIwQzcuOTg3ODEsMjIuMjA1OCA2LjE5OTY4LDIzLjk5MzkgMy45OTM5LDIzLjk5MzlDMS43ODgxMywyMy45OTM5IDAsMjIuMjA1OCAwLDIwQzAsMTcuNzk0MiAxLjc4ODEzLDE2LjAwNjEgMy45OTM5LDE2LjAwNjFaIiBzdHlsZT0iZmlsbDpyZ2IoMTg3LDE4NywxODcpOyIvPgogICAgICAgIDwvZz4KICAgICAgICA8Zz4KICAgICAgICAgICAgPHBhdGggZD0iTTUuODU3ODYsMjguNDkzOUM3LjQxNzU4LDI2LjkzNDIgOS45NDYzOCwyNi45MzQyIDExLjUwNjEsMjguNDkzOUMxMy4wNjU4LDMwLjA1MzYgMTMuMDY1OCwzMi41ODI0IDExLjUwNjEsMzQuMTQyMUM5Ljk0NjM4LDM1LjcwMTkgNy40MTc1OCwzNS43MDE5IDUuODU3ODYsMzQuMTQyMUM0LjI5ODE1LDMyLjU4MjQgNC4yOTgxNSwzMC4wNTM2IDUuODU3ODYsMjguNDkzOVoiIHN0eWxlPSJmaWxsOnJnYigxNjQsMTY0LDE2NCk7Ii8+CiAgICAgICAgPC9nPgogICAgICAgIDxnPgogICAgICAgICAgICA8cGF0aCBkPSJNMzYuMDA2MSwxNi4wMDYxQzM4LjIxMTksMTYuMDA2MSA0MCwxNy43OTQyIDQwLDIwQzQwLDIyLjIwNTggMzguMjExOSwyMy45OTM5IDM2LjAwNjEsMjMuOTkzOUMzMy44MDAzLDIzLjk5MzkgMzIuMDEyMiwyMi4yMDU4IDMyLjAxMjIsMjBDMzIuMDEyMiwxNy43OTQyIDMzLjgwMDMsMTYuMDA2MSAzNi4wMDYxLDE2LjAwNjFaIiBzdHlsZT0iZmlsbDpyZ2IoNzQsNzQsNzQpOyIvPgogICAgICAgIDwvZz4KICAgICAgICA8Zz4KICAgICAgICAgICAgPHBhdGggZD0iTTI4LjQ5MzksNS44NTc4NkMzMC4wNTM2LDQuMjk4MTUgMzIuNTgyNCw0LjI5ODE1IDM0LjE0MjEsNS44NTc4NkMzNS43MDE5LDcuNDE3NTggMzUuNzAxOSw5Ljk0NjM4IDM0LjE0MjEsMTEuNTA2MUMzMi41ODI0LDEzLjA2NTggMzAuMDUzNiwxMy4wNjU4IDI4LjQ5MzksMTEuNTA2MUMyNi45MzQyLDkuOTQ2MzggMjYuOTM0Miw3LjQxNzU4IDI4LjQ5MzksNS44NTc4NloiIHN0eWxlPSJmaWxsOnJnYig1MCw1MCw1MCk7Ii8+CiAgICAgICAgPC9nPgogICAgPC9nPgo8L3N2Zz4K" />
+
+</div>
+
+<div class="dropdown-holder">
+
+  <dl class="dropdown">
+    <dt><a><span>Year</span></a></dt>
+      <dd>
+        <ul style="display: none;">
+          <li><a class="default">Year</a></li>
+          <li><a data-value="2014" data-type="year">2014</a></li>
+          <li><a data-value="2013" data-type="year">2013</a></li>
+          <li><a data-value="2012" data-type="year">2012</a></li>
+          <li><a data-value="2011" data-type="year">2011</a></li>
+          <li><a data-value="2010" data-type="year">2010</a></li>
+          <li><a data-value="2009" data-type="year">2009</a></li>
+          <li><a data-value="2008" data-type="year">2008</a></li>
+          <li><a data-value="2007" data-type="year">2007</a></li>
+          <li><a data-value="2006" data-type="year">2006</a></li>
+          <li><a data-value="2005" data-type="year">2005</a></li>
+          <li><a data-value="2004" data-type="year">2004</a></li>
+          <li><a data-value="2003" data-type="year">2003</a></li>
+          <li><a data-value="2002" data-type="year">2002</a></li>
+          <li><a data-value="2001" data-type="year">2001</a></li>
+          <li><a data-value="2000" data-type="year">2000</a></li>
+          <li><a data-value="1999" data-type="year">1999</a></li>
+          <li><a data-value="1998" data-type="year">1998</a></li>
+          <li><a data-value="1997" data-type="year">1997</a></li>
+          <li><a data-value="1996" data-type="year">1996</a></li>
+          <li><a data-value="1995" data-type="year">1995</a></li>
+          <li><a data-value="1994" data-type="year">1994</a></li>
+          <li><a data-value="1993" data-type="year">1993</a></li>
+          <li><a data-value="1992" data-type="year">1992</a></li>
+          <li><a data-value="1991" data-type="year">1991</a></li>
+          <li><a data-value="1990" data-type="year">1990</a></li>
+          <li><a data-value="1989" data-type="year">1989</a></li>
+          <li><a data-value="1988" data-type="year">1988</a></li>
+          <li><a data-value="1987" data-type="year">1987</a></li>
+          <li><a data-value="1986" data-type="year">1986</a></li>
+          <li><a data-value="1985" data-type="year">1985</a></li>
+          <li><a data-value="1984" data-type="year">1984</a></li>
+          <li><a data-value="1983" data-type="year">1983</a></li>
+          <li><a data-value="1982" data-type="year">1982</a></li>
+          <li><a data-value="1981" data-type="year">1981</a></li>
+          <li><a data-value="1980" data-type="year">1980</a></li>
+          <li><a data-value="1979" data-type="year">1979</a></li>
+          <li><a data-value="1978" data-type="year">1978</a></li>
+          <li><a data-value="1977" data-type="year">1977</a></li>
+          <li><a data-value="1976" data-type="year">1976</a></li>
+          <li><a data-value="1975" data-type="year">1975</a></li>
+
+
+        </ul>
+      </dd>
+  </dl>
+
+  <dl class="dropdown">
+    <dt><a><span>Month</span></a></dt>
+      <dd>
+        <ul style="display: none;">
+          <li><a class="default">Month</a></li>
+          <li><a data-value="1" data-type="month">Jan</a></li>
+          <li><a data-value="2" data-type="month">Feb</a></li>
+          <li><a data-value="3" data-type="month">Mar</a></li>
+          <li><a data-value="4" data-type="month">Apr</a></li>
+          <li><a data-value="5" data-type="month">May</a></li>
+          <li><a data-value="6" data-type="month">Jun</a></li>
+          <li><a data-value="7" data-type="month">Jul</a></li>
+          <li><a data-value="8" data-type="month">Aug</a></li>
+          <li><a data-value="9" data-type="month">Sep</a></li>
+          <li><a data-value="10" data-type="month">Oct</a></li>
+          <li><a data-value="11" data-type="month">Nov</a></li>
+          <li><a data-value="12" data-type="month">Dec</a></li>
+
+        </ul>
+      </dd>
+  </dl>
+
+  <dl class="dropdown">
+    <dt><a><span>Day</span></a></dt>
+      <dd>
+        <ul style="display: none;">
+          <li><a class="default">Day</a></li>
+          <li><a data-value="1" data-type="day">1</a></li>
+          <li><a data-value="2" data-type="day">2</a></li>
+          <li><a data-value="3" data-type="day">3</a></li>
+          <li><a data-value="4" data-type="day">4</a></li>
+          <li><a data-value="5" data-type="day">5</a></li>
+          <li><a data-value="6" data-type="day">6</a></li>
+          <li><a data-value="7" data-type="day">7</a></li>
+          <li><a data-value="8" data-type="day">8</a></li>
+          <li><a data-value="9" data-type="day">9</a></li>
+          <li><a data-value="10" data-type="day">10</a></li>
+          <li><a data-value="11" data-type="day">11</a></li>
+          <li><a data-value="12" data-type="day">12</a></li>
+          <li><a data-value="13" data-type="day">13</a></li>
+          <li><a data-value="14" data-type="day">14</a></li>
+          <li><a data-value="15" data-type="day">15</a></li>
+          <li><a data-value="16" data-type="day">16</a></li>
+          <li><a data-value="17" data-type="day">17</a></li>
+          <li><a data-value="18" data-type="day">18</a></li>
+          <li><a data-value="19" data-type="day">19</a></li>
+          <li><a data-value="20" data-type="day">20</a></li>
+          <li><a data-value="21" data-type="day">21</a></li>
+          <li><a data-value="22" data-type="day">22</a></li>
+          <li><a data-value="23" data-type="day">23</a></li>
+          <li><a data-value="24" data-type="day">24</a></li>
+          <li><a data-value="25" data-type="day">25</a></li>
+          <li><a data-value="26" data-type="day">26</a></li>
+          <li><a data-value="27" data-type="day">27</a></li>
+          <li><a data-value="28" data-type="day">28</a></li>
+          <li><a data-value="29" data-type="day">29</a></li>
+          <li><a data-value="30" data-type="day">30</a></li>
+          <li><a data-value="31" data-type="day">31</a></li>
+
+        </ul>
+      </dd>
+  </dl>
+</div>
+
+<div class="flex-container">
+<div class="flex-item" id="before"><div class="flex-item-title">Few Days Before</div><div class="data"></div></div>
+<div class="flex-item" id="exact"><div class="flex-item-title">That Day</div><div class="data"></div></div>
+<div class="flex-item" id="after"><div class="flex-item-title">Few Days After</div><div class="data"></div></div>
+</div>
+<div class="footer">
+Create dates for <a href="http://id.loc.gov/authorities/subjects.html">LCSH</a> data starts in 1986, <a href="http://id.loc.gov/authorities/names.html">NAF</a> data starts in the mid 1970s. The latest extracts are from 2014.
+</div>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.2/jquery.min.js"></script>
+<script>
+  var year = null, month = null, day = null;
+
+  var datasources = ['1BCFXjEb7RzJMbQf4Zeix6e9L7zs5dEm0nVP6T0Hy', '1sqgnHfTvBrCx6MMBgZAQdXdhM8WHBxBKOvgbYZHQ', '1pbqWI5gOnmD0Rse_csX_M1RSeXCWOci_EAUNP4_c', '16yF8bMQhKrjSPtFqZGiUvmtCVgyJQLl0dIWCd-RG']
+
+  var addAuth = function(container,data){
+
+    var lcUrl = (data[2].search('sh')>-1) ? 'http://id.loc.gov/authorities/subjects/'+data[2] : 'http://id.loc.gov/authorities/names/'+data[2]
+    var viaf = (data[2].search('sh')>-1) ? false : 'http://viaf.org/viaf/lccn/'+data[2]
+
+
+    var c = container.append(
+      $("<div>")
+        .addClass('result')
+        .attr('id',data[2])
+    )
+
+
+    $("#"+data[2]).append(
+      $("<a>")
+        .text(data[0])
+        .attr('target','_blank')
+        .attr('href',lcUrl)
+    )
+
+
+    if (viaf){
+      $("#"+data[2]).append(
+        $("<a>")
+          .text('[VIAF]')
+          .attr('target','_blank')
+          .css('font-size','0.75em')
+          .css('padding-left','2px')
+          .attr('href',viaf)
+      )
+
+
+    }
+
+
+  }
+
+  var requestAllData = function(timestamp){
+    $("#spinner").toggle()
+    $("#exact .data").empty()
+    $("#before .data").empty()
+    $("#after .data").empty()
+    var pendingRequests = []
+    for (var x in datasources){
+
+      pendingRequests.push(datasources[x])
+      requestData(timestamp-18000,timestamp+(85999-18000),datasources[x], function(data){
+        for (var y in data.rows){
+          addAuth($("#exact .data"),data.rows[y])
+        }
+        pendingRequests.shift();
+      })
+
+      pendingRequests.push(datasources[x])
+      //requestData(timestamp-604800,timestamp,datasources[x], function(data){
+      requestData((timestamp-18000)-(85999*2),timestamp-19000,datasources[x], function(data){
+        for (var y in data.rows){
+          addAuth($("#before .data"),data.rows[y])
+        }
+        pendingRequests.shift();
+      })
+
+      pendingRequests.push(datasources[x])
+      // requestData(timestamp+85999,timestamp+604800,datasources[x], function(data){
+      requestData((timestamp-18000) + 85999,timestamp+(85999*2),datasources[x], function(data){
+
+        for (var y in data.rows){
+          addAuth($("#after .data"),data.rows[y])
+        }
+        pendingRequests.shift();
+      })
+
+
+
+    }
+
+
+
+    var i = setInterval(function(){
+      if (pendingRequests.length===0){
+        clearInterval(i)
+        $("#spinner").toggle()
+        if ($('#exact .result').length===0) $('#exact .data').append($("<div>").addClass('noresults').text('Sorry, no headings found for this time range.'));
+        if ($('#before .result').length===0) $('#before .data').append($("<div>").addClass('noresults').text('Sorry, no headings found for this time range.'));
+        if ($('#after .result').length===0) $('#after .data').append($("<div>").addClass('noresults').text('Sorry, no headings found for this time range.'));
+
+
+      }
+    },500)
+
+  }
+
+  var requestData = function(start, stop,source,cb){
+    var sql = 'SELECT * FROM ' + source + ' WHERE earliestDate>='+start+' and earliestDate<='+stop+' LIMIT 20' // .replace(/\s/g,'%20')
+    $.get( 'https://www.googleapis.com/fusiontables/v1/query', { sql: sql, key: 'AIzaSyDWXw1zDUbyEu3UA_ulQ2eZCJHMo43Myac' } )
+      .done(function( data ) {
+        cb(data)
+      })
+
+  }
+
+
+
+
+
+  var dropdowns = $('.dropdown');
+  dropdowns.find('dt').click(function () {
+      dropdowns.find('dd ul').hide();
+      $(this).next().children().toggle();
+  });
+  dropdowns.find('dd ul li a').click(function () {
+
+      if ($(this).data("type")==='year'){ year = $(this).data("value")}
+      if ($(this).data("type")==='month'){ month = $(this).data("value")}
+      if ($(this).data("type")==='day'){ day = $(this).data("value")}
+      $('html, body').scrollTop(0);
+      if (year && month && day){
+        var d = new Date(parseInt(year),(parseInt(month)-1),parseInt(day));
+        requestAllData(d.getTime() / 1000)
+      }
+      var leSpan = $(this).parents('.dropdown').find('dt a span');
+      $(this).parents('.dropdown').find('dd a').each(function () {
+          $(this).removeClass('selected');
+      });
+      leSpan.html($(this).html());
+      if ($(this).hasClass('default')) {
+          leSpan.removeClass('selected');
+      } else {
+          leSpan.addClass('selected');
+          $(this).addClass('selected');
+      }
+      $(this).parents('ul').hide();
+  });
+  $(document).bind('click', function (e) {
+      if (!$(e.target).parents().hasClass('dropdown'))
+          $('.dropdown dd ul').hide();
+  });
+</script>
+</body></html>
